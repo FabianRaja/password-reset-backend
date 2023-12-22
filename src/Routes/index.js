@@ -59,7 +59,7 @@ router.post("/login",async(req,res)=>{
 })
 
 //reset password
-router.post("/reset",isAuthorized,async(req,res)=>{
+router.post("/reset",async(req,res)=>{
     try {
          //if user doesn't enter email id it will return error
         if(!req.body.email){

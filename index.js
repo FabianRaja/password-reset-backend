@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from 'dotenv';
 import cors from "cors";
 import { Router } from "./src/Routes/index.js";
-import { isAuthorized } from "./src/Auth/auth.js";
 dotenv.config();
 
 //initializing server
