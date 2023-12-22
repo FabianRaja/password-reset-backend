@@ -29,12 +29,12 @@ router.post("/signup",async(req,res)=>{
                 const user=await addUser(data);
                 res.status(200).json({user})
             }else{
-                return res.status(400).send("Email address already registered");
+                return res.status(400).json({message:"Email Address already registered"});
             }      
         }    
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error sign up")
+        res.status(500).json({message:"Error sign up"})
     }
 })
 
@@ -47,14 +47,14 @@ router.post("/login",async(req,res)=>{
             const CheckLoginUser=await loginUser(req.body.email,req.body.password);
             if(CheckLoginUser){ 
                 const token=generateToken(CheckLoginUser._id);
-                return res.status(200).json({message:"login succesfull",token});
+                return res.status(200).json({message:"login succesfull"});
             }else{
-                return res.status(400).send("Email or password invalid")
+                return res.status(400).json({message:"Invalid Email or Password"});
             }  
         }    
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error loggin in")
+        res.status(500).json({message:"Error fetching login"})
     }
 })
 
