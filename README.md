@@ -7,7 +7,6 @@
 * mongodb
 * nodemon
 * nodemailer
-* dotenv
 
 ## Reference:
 
