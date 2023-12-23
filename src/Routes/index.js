@@ -27,7 +27,7 @@ router.post("/signup",async(req,res)=>{
             if(!emailCheck){
                 const data={...req.body,string:"empty"};
                 const user=await addUser(data);
-                res.status(200).json({message:"Sign in successfull"})
+                return res.status(200).json({message:"Sign in successfull"})
             }else{
                 return res.status(400).json({message:"Email Address already registered"});
             }      
