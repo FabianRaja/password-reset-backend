@@ -75,7 +75,7 @@ router.post("/reset",async(req,res)=>{
                 const addStringToDb=await addString(checkingUser._id,generateString);
                
                 //composing mail
-                const link=`http://localhost:9000/reset/link/${generateString}`;
+                const link=`http://localhost:5173/reset/${generateString}`;
                 const composingMail={
                     from:"fullstackpurpose@gmail.com",
                     to:"fabiraja21052002@gmail.com",
@@ -103,20 +103,20 @@ router.post("/reset",async(req,res)=>{
 router.post("/reset/link/:string",async(req,res)=>{
     try {
         if(Object.keys(req.body).length<1){
-            return res.status(400).send("Enter new password")
+            return res.status(400).json({message:"Enter new password"})
         }else{
            const findingUserWithString=await findingUser(req.params.string);
            if(findingUserWithString){
            const changingPassword=await resettingPassword(findingUserWithString._id,req.body.password);
            const deleteString=await deletingString(findingUserWithString._id);
-           return res.status(200).json({changingPassword}); 
+           return res.status(200).json({message:"password changed successfully"}); 
            }else{
-            return res.status(500).send("link expired try again")
+            return res.status(500).json({message:"link expired try again"})
            }    
     }   
     } catch (error) {
         console.log(error);
-        res.status(500).send("error while resetting password")
+        res.status(500).json({message:"error while resetting password"})
     }
 })
 
