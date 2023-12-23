@@ -76,8 +76,7 @@ router.post("/reset",async(req,res)=>{
                 const addStringToDb=await addString(checkingUser._id,generateString);
                
                 //composing mail
-                const link=`http://passwordresetbyfabianrajafernando.netlify.app/#reset/${generateString}`;
-                // const link=`http://passwordresetbyfabianrajafernando.netlify.app/#register`;
+                const link=`http://passwordresetbyfabianrajafernando.netlify.app/reset/${generateString}`;
                 const composingMail={
                     from:"fullstackpurpose@gmail.com",
                     to:"fabiraja21052002@gmail.com",
