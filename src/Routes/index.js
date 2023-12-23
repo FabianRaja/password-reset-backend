@@ -76,10 +76,11 @@ router.post("/reset",async(req,res)=>{
                 const addStringToDb=await addString(checkingUser._id,generateString);
                
                 //composing mail
-                const link=`https://passwordresetbyfabianrajafernando.netlify.app/reset/${generateString}`;
+                // const link=`http://passwordresetbyfabianrajafernando.netlify.app/reset/${generateString}`;
+                const link=`http://passwordresetbyfabianrajafernando.netlify.app/register`;
                 const composingMail={
                     from:"fullstackpurpose@gmail.com",
-                    to:checkingUser.email,
+                    to:"fabiraja21052002@gmail.com",
                     subject:"Password Reset Link",
                     html:`<a href=${link}><button>Reset</button></a>`
                 }
