@@ -27,7 +27,7 @@ router.post("/signup",async(req,res)=>{
             if(!emailCheck){
                 const data={...req.body,string:"empty"};
                 const user=await addUser(data);
-                return res.status(200).json({message:"Sign in successfull"})
+                return res.status(200).json({message:"Register Successfully"})
             }else{
                 return res.status(400).json({message:"Email Address already registered"});
             }      
@@ -63,11 +63,11 @@ router.post("/reset",async(req,res)=>{
     try {
          //if user doesn't enter email id it will return error
         if(!req.body.email){
-            return res.status(400).send("Enter email and and click reset password")
+            return res.status(400).json({message:"Enter email and and click reset password"})
         }else{
              const checkingUser=await checkUser(req.body.email);
              if(!checkingUser){
-                res.status(400).send("Reset link is already Sent or Entered email is not registered")
+                res.status(400).json({message:"Reset link is already Sent or email is invalid"})
              }else{
                 //creating a random string
                 const generateString=Math.random().toString(36).slice(2);
@@ -79,7 +79,7 @@ router.post("/reset",async(req,res)=>{
                 const composingMail={
                     from:"fullstackpurpose@gmail.com",
                     to:"fabiraja21052002@gmail.com",
-                    subject:"Reset Link",
+                    subject:"Password Reset Link",
                     html:`<a href=${link}>reset link</a>`
                 }
                 //sendingMail
@@ -90,12 +90,12 @@ router.post("/reset",async(req,res)=>{
                         console.log("mail sent")
                     }
                 })
-                return res.status(200).send("reset link has been sent to your mail id");
+                return res.status(200).json({message:"reset link has been sent to your mail id"});
              }       
         }    
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error while reset password")
+        res.status(500).json({message:"Error while reset password"})
     }
 })
 
