@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
+//just used to learning purpose and not used in this task
 export function generateToken(id){
     return jwt.sign({id},process.env.SECRET_KEY);
 } 

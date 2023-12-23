@@ -3,6 +3,7 @@ import { addString, addUser, checkUser, deletingString, findingUser, getAllData,
 import { transporter } from "../Mail/mailer.js";
 import { generateToken, isAuthorized } from "../Auth/auth.js";
 
+//using express.Router as common
 const router=express.Router();
 
 //to get all the data's of the user
@@ -75,12 +76,12 @@ router.post("/reset",async(req,res)=>{
                 const addStringToDb=await addString(checkingUser._id,generateString);
                
                 //composing mail
-                const link=`http://localhost:5173/reset/${generateString}`;
+                const link=`https://passwordresetbyfabianrajafernando.netlify.app/reset/${generateString}`;
                 const composingMail={
                     from:"fullstackpurpose@gmail.com",
-                    to:"fabiraja21052002@gmail.com",
+                    to:checkingUser.email,
                     subject:"Password Reset Link",
-                    html:`<a href=${link}>reset link</a>`
+                    html:`<a href=${link}><button>Reset</button></a>`
                 }
                 //sendingMail
                 transporter.sendMail(composingMail,(error,info)=>{
@@ -105,6 +106,7 @@ router.post("/reset/link/:string",async(req,res)=>{
         if(Object.keys(req.body).length<1){
             return res.status(400).json({message:"Enter new password"})
         }else{
+            //finding user with the random string and changing the password and then deleting the random string in the db
            const findingUserWithString=await findingUser(req.params.string);
            if(findingUserWithString){
            const changingPassword=await resettingPassword(findingUserWithString._id,req.body.password);
